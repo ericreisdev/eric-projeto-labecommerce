@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Filters from "./Components/Filters/Filters";
 import Home from "./Components/ProductList/Home/Home";
 import Cart from "./Components/ShoppingCart/Cart/Cart";
-import  { GlobalStyle, HomeRow, Main } from "./GlobalStyle";
+import { GlobalStyle, HomeRow, Main } from "./GlobalStyle";
 import productList from "./assets/productsList";
 import Header from "./Components/Header";
 import Footer from "./Components/Footer";
@@ -20,9 +20,6 @@ const App = () => {
 
   const [ordination, setOrdination] = useState("");
 
-  
-
-  
   const handleMinFilter = (e) => {
     const newMinFilter = parseFloat(e.target.value);
     if (newMinFilter >= 0) {
@@ -41,8 +38,6 @@ const App = () => {
     setSearchFilter(e.target.value);
   };
 
-
-
   const handleCart = (product) => {
     const existingItem = cart.find((item) => item.cod === product.cod);
     if (existingItem) {
@@ -52,10 +47,9 @@ const App = () => {
           : item
       );
       setCart(updatedCart);
-      }
-    else{
-      const newItem = {...product, quantity: 1};
-      setCart([...cart, newItem])
+    } else {
+      const newItem = { ...product, quantity: 1 };
+      setCart([...cart, newItem]);
     }
   };
 
@@ -70,7 +64,7 @@ const App = () => {
   return (
     <>
       <GlobalStyle />
-      <Header/>
+      <Header />
       <Main>
         <Filters
           minFilter={minFilter}
@@ -94,6 +88,15 @@ const App = () => {
             cart={cart}
             setCart={setCart}
             handleCart={handleCart}
+            minFilter={minFilter}
+            setMinFilter={setMinFilter}
+            maxFilter={maxFilter}
+            setMaxFilter={setMaxFilter}
+            searchFilter={searchFilter}
+            setSearchFilter={setSearchFilter}
+            handleMinFilter={handleMinFilter}
+            handleMaxFilter={handleMaxFilter}
+            handleSearchFilter={handleSearchFilter}
           />
         </HomeRow>
         <Cart
@@ -103,7 +106,7 @@ const App = () => {
           setCart={setCart}
         />
       </Main>
-      <Footer/>
+      <Footer />
     </>
   );
 };

@@ -12,6 +12,15 @@ const Home = ({
   setOrdination,
   handleOrdination,
   handleCart,
+  minFilter,
+  setMinFilter,
+  maxFilter,
+  setMaxFilter,
+  searchFilter,
+  setSearchFilter,
+  handleMinFilter,
+  handleMaxFilter,
+  handleSearchFilter,
 }) => {
   return (
     <>
@@ -36,6 +45,15 @@ const Home = ({
 
         <DivNomeEProduct>
           {productList
+          .filter((item)=>{
+            return item.name.includes(searchFilter)
+          })
+            .filter((item) => {
+              return item.value >= minFilter || minFilter === "";
+            })
+            .filter((item) => {
+              return item.value <= maxFilter || maxFilter === "";
+            })
             .sort((a, b) => {
               const firstItem = a.name.toUpperCase();
               const lastItem = b.name.toUpperCase();
