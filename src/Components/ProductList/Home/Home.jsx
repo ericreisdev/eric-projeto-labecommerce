@@ -21,6 +21,8 @@ const Home = ({
   handleMinFilter,
   handleMaxFilter,
   handleSearchFilter,
+  cartOpen,
+  setCartOpen,
 }) => {
   return (
     <>
@@ -71,6 +73,8 @@ const Home = ({
                 key={product.id}
                 product={product}
                 handleCart={handleCart}
+                cartOpen={cartOpen}
+                setCartOpen={setCartOpen}
               />
             ))}
         </DivNomeEProduct>

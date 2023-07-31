@@ -5,19 +5,27 @@ import { CartContainer } from './CartStyle';
 const Cart = ({  amount,
   setAmount,
   cart,
-  setCart}) => {
+  setCart,
+  cartOpen,
+  setCartOpen,
+}) => {
 
-  const CartName = 'Cart'
-
-  return (
+    return (
     <>
+    {cartOpen ? (
     <CartContainer>
-    <p className='cart-name'>{CartName}</p>
+    
+    <p className='cart-name'>Carrinho</p>
+    
     <Items cart={cart}
     setCart={setCart}
     />
+    <br />
+    <br />
+    <br />
+    <button className='close-cart' onClick={() => setCartOpen(false)}>Fechar carrinho</button>
     </CartContainer>
-    
+    ) : null}
     
     
     </>

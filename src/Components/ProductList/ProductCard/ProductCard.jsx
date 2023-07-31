@@ -1,11 +1,9 @@
-import React from 'react';
-import { ProductDiv, ProductENomeColumn } from './ProductCardStyle';
-import NomeItem from './NomeItem/NomeItem';
+import React from "react";
+import { ProductDiv, ProductENomeColumn } from "./ProductCardStyle";
+import NomeItem from "./NomeItem/NomeItem";
 
-const ProductCard = ({ product, handleCart}) => {
-
-  const ProductName = 'ProductCard';
-
+const ProductCard = ({ product, handleCart, cartOpen, setCartOpen }) => {
+  const ProductName = "ProductCard";
 
   return (
     <>
@@ -13,11 +11,13 @@ const ProductCard = ({ product, handleCart}) => {
         <ProductDiv>
           <img src={product.imageUrl} alt="foto" />
         </ProductDiv>
-        <NomeItem product={product} handleCart={handleCart}/>
+        <NomeItem
+          product={product}
+          handleCart={handleCart}
+          cartOpen={cartOpen}
+          setCartOpen={setCartOpen}
+        />
       </ProductENomeColumn>
-
-
-
     </>
   );
 };

@@ -18,7 +18,7 @@ const Filters = ({
   return (
     <>
       <FilterDiv>
-        <h2>Filters</h2>
+        <h2>Filtros</h2>
         <br />
         <form action="#">
           <label htmlFor="valorMinimo">Valor mínimo:</label>

@@ -1,4 +1,4 @@
-import React, {  useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Filters from "./Components/Filters/Filters";
 import Home from "./Components/ProductList/Home/Home";
 import Cart from "./Components/ShoppingCart/Cart/Cart";
@@ -20,28 +20,30 @@ const App = () => {
 
   const [ordination, setOrdination] = useState("");
 
-  const saveLocalStorage = () =>{
-    if(cart.length > 0) {
-      localStorage.setItem("cart", JSON.stringify(cart))
+  const [cartOpen, setCartOpen] = useState(false);
+
+  const saveLocalStorage = () => {
+    if (cart.length > 0) {
+      localStorage.setItem("cart", JSON.stringify(cart));
     } else {
-      localStorage.removeItem("cart")
+      localStorage.removeItem("cart");
     }
-  }
+  };
 
-  const getLocalStorage = () =>{
-    const fullCart = localStorage.getItem("cart")
-    if (fullCart){
-      setCart(JSON.parse(fullCart))
+  const getLocalStorage = () => {
+    const fullCart = localStorage.getItem("cart");
+    if (fullCart) {
+      setCart(JSON.parse(fullCart));
     }
-  }
+  };
 
-  useEffect(()=>{
-    getLocalStorage()
-  },[])
+  useEffect(() => {
+    getLocalStorage();
+  }, []);
 
-  useEffect(()=>{
-    saveLocalStorage()
-  },[cart])
+  useEffect(() => {
+    saveLocalStorage();
+  }, [cart]);
 
   const handleMinFilter = (e) => {
     const newMinFilter = parseFloat(e.target.value);
@@ -65,9 +67,7 @@ const App = () => {
     const existingItem = cart.find((item) => item.id === product.id);
     if (existingItem) {
       const updatedCart = cart.map((item) =>
-        item.id === product.id
-          ? { ...item, quantity: item.quantity + 1 }
-          : item
+        item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item
       );
       setCart(updatedCart);
     } else {
@@ -87,7 +87,10 @@ const App = () => {
   return (
     <>
       <GlobalStyle />
-      <Header />
+      <Header
+      cartOpen={cartOpen}
+      setCartOpen={setCartOpen}
+      />
       <Main>
         <Filters
           minFilter={minFilter}
@@ -120,6 +123,8 @@ const App = () => {
             handleMinFilter={handleMinFilter}
             handleMaxFilter={handleMaxFilter}
             handleSearchFilter={handleSearchFilter}
+            setCartOpen={setCartOpen}
+            cartOpen={cartOpen}
           />
         </HomeRow>
         <Cart
@@ -127,6 +132,8 @@ const App = () => {
           setAmount={setAmount}
           cart={cart}
           setCart={setCart}
+          cartOpen={cartOpen}
+          setCartOpen={setCartOpen}
         />
       </Main>
       <Footer />
