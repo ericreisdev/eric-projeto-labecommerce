@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {  useEffect, useState } from "react";
 import Filters from "./Components/Filters/Filters";
 import Home from "./Components/ProductList/Home/Home";
 import Cart from "./Components/ShoppingCart/Cart/Cart";
@@ -8,9 +8,9 @@ import Header from "./Components/Header";
 import Footer from "./Components/Footer";
 
 const App = () => {
-  const [minFilter, setMinFilter] = useState(-Infinity);
+  const [minFilter, setMinFilter] = useState("");
 
-  const [maxFilter, setMaxFilter] = useState(Infinity);
+  const [maxFilter, setMaxFilter] = useState("");
 
   const [searchFilter, setSearchFilter] = useState("");
 
@@ -20,16 +20,39 @@ const App = () => {
 
   const [ordination, setOrdination] = useState("");
 
+  const saveLocalStorage = () =>{
+    if(cart.length > 0) {
+      localStorage.setItem("cart", JSON.stringify(cart))
+    } else {
+      localStorage.removeItem("cart")
+    }
+  }
+
+  const getLocalStorage = () =>{
+    const fullCart = localStorage.getItem("cart")
+    if (fullCart){
+      setCart(JSON.parse(fullCart))
+    }
+  }
+
+  useEffect(()=>{
+    getLocalStorage()
+  },[])
+
+  useEffect(()=>{
+    saveLocalStorage()
+  },[cart])
+
   const handleMinFilter = (e) => {
     const newMinFilter = parseFloat(e.target.value);
-    if (newMinFilter >= 0) {
+    if (newMinFilter >= 0 || isNaN(newMinFilter)) {
       setMinFilter(newMinFilter);
     }
   };
 
   const handleMaxFilter = (e) => {
     const newMaxFilter = parseFloat(e.target.value);
-    if (newMaxFilter >= 0) {
+    if (newMaxFilter >= 0 || isNaN(newMaxFilter)) {
       setMaxFilter(newMaxFilter);
     }
   };
@@ -39,10 +62,10 @@ const App = () => {
   };
 
   const handleCart = (product) => {
-    const existingItem = cart.find((item) => item.cod === product.cod);
+    const existingItem = cart.find((item) => item.id === product.id);
     if (existingItem) {
       const updatedCart = cart.map((item) =>
-        item.cod === product.cod
+        item.id === product.id
           ? { ...item, quantity: item.quantity + 1 }
           : item
       );

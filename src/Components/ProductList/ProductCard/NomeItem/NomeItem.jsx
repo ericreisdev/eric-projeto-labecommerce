@@ -1,17 +1,17 @@
 import React from 'react'
 import { NomeItemDiv } from './NomeItemStyle';
 
-const NomeItem = ({ productList, handleCart }) => {
+const NomeItem = ({ product, handleCart }) => {
   const addToCart = () =>{
-    handleCart(productList)
+    handleCart(product)
   }
 
   return (
     <NomeItemDiv>
-      <p>{productList.name}</p>
+      <p>{product.name}</p>
       <br />
       <br />
-      <p>R$ {productList.value}</p>
+      <p>R$ {product.value.toFixed(2)}</p>
       <br />
       <br />
       <button id='buttonCarrinho' onClick={addToCart}>
