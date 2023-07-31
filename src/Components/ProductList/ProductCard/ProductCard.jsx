@@ -2,7 +2,7 @@ import React from 'react';
 import { ProductDiv, ProductENomeColumn } from './ProductCardStyle';
 import NomeItem from './NomeItem/NomeItem';
 
-const ProductCard = ({ productList, handleCart}) => {
+const ProductCard = ({ product, handleCart}) => {
 
   const ProductName = 'ProductCard';
 
@@ -11,9 +11,9 @@ const ProductCard = ({ productList, handleCart}) => {
     <>
       <ProductENomeColumn>
         <ProductDiv>
-          <img src={productList.imageUrl} alt="foto" />
+          <img src={product.imageUrl} alt="foto" />
         </ProductDiv>
-        <NomeItem productList={productList} handleCart={handleCart}/>
+        <NomeItem product={product} handleCart={handleCart}/>
       </ProductENomeColumn>
 
 

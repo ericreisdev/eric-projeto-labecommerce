@@ -12,6 +12,15 @@ const Home = ({
   setOrdination,
   handleOrdination,
   handleCart,
+  minFilter,
+  setMinFilter,
+  maxFilter,
+  setMaxFilter,
+  searchFilter,
+  setSearchFilter,
+  handleMinFilter,
+  handleMaxFilter,
+  handleSearchFilter,
 }) => {
   return (
     <>
@@ -27,7 +36,7 @@ const Home = ({
               value={ordination}
               onChange={handleOrdination}
             >
-              <option value="selecione">Selecione</option>
+              <option value="">Selecione</option>
               <option value="asc">Crescente</option>
               <option value="desc">Decrescente</option>
             </select>
@@ -36,8 +45,17 @@ const Home = ({
 
         <DivNomeEProduct>
           {productList
+          .filter((item)=>{
+            return item.name.includes(searchFilter)
+          })
+            .filter((item) => {
+              return isNaN(minFilter) || item.value >= minFilter || minFilter === "";
+            })
+            .filter((item) => {
+              return isNaN(maxFilter) || item.value <= maxFilter || maxFilter === "";
+            })
             .sort((a, b) => {
-              const firstItem = a.name.toUpperCase();
+            const firstItem = a.name.toUpperCase();
               const lastItem = b.name.toUpperCase();
               if (ordination === "selecione") {
                 return 0;
@@ -48,10 +66,10 @@ const Home = ({
               }
               return 0;
             })
-            .map((item) => (
+            .map(product => (
               <ProductCard
-                key={item.cod}
-                productList={item}
+                key={product.id}
+                product={product}
                 handleCart={handleCart}
               />
             ))}
