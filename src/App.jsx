@@ -22,6 +22,35 @@ const App = () => {
 
   const [cartOpen, setCartOpen] = useState(false);
 
+  const [filteredProducts, setFilteredProducts] = useState(productList);
+
+  useEffect(() => {
+    let tempProducts = productList
+      .filter((item) => {
+        return item.name.includes(searchFilter);
+      })
+      .filter((item) => {
+        return isNaN(minFilter) || item.value >= minFilter || minFilter === "";
+      })
+      .filter((item) => {
+        return isNaN(maxFilter) || item.value <= maxFilter || maxFilter === "";
+      })
+      .sort((a, b) => {
+        const firstItem = a.name.toUpperCase();
+        const lastItem = b.name.toUpperCase();
+        if (ordination === "selecione") {
+          return 0;
+        } else if (firstItem < lastItem) {
+          return ordination === "asc" ? -1 : 1;
+        } else if (firstItem > lastItem) {
+          return ordination === "desc" ? -1 : 1;
+        }
+        return 0;
+      });
+
+    setFilteredProducts(tempProducts);
+  }, [searchFilter, minFilter, maxFilter, ordination]);
+
   const saveLocalStorage = () => {
     if (cart.length > 0) {
       localStorage.setItem("cart", JSON.stringify(cart));
@@ -105,7 +134,8 @@ const App = () => {
         />
         <HomeRow>
           <Home
-            productList={productList}
+            productList={filteredProducts}
+            productCount={filteredProducts.length}
             ordination={ordination}
             setOrdination={setOrdination}
             handleOrdination={handleOrdination}

@@ -8,6 +8,7 @@ import {
 
 const Home = ({
   productList,
+  productCount,
   ordination,
   setOrdination,
   handleOrdination,
@@ -28,7 +29,7 @@ const Home = ({
     <>
       <ParagrafoEProduct>
         <QuantidadeOrdenacao>
-          <p>Quantidade de Produtos:</p>
+          <p>Quantidade de Produtos: {productCount}</p>
           <label htmlFor="ordenacao">
             Ordenação:
             <br />
